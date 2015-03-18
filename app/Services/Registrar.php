@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace bbs\Services;
 
-use App\User;
+use bbs\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
