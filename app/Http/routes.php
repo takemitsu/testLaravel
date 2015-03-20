@@ -13,6 +13,9 @@
 
 Route::get('/', 'WelcomeController@index');
 
+Route::resource('message', 'MessageController',
+	['only' => ['index', 'store', 'show'],]);
+
 Route::resource('post', 'PostController',
 	['only' => ['index', 'store', 'show'],]);
 
