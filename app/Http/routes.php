@@ -13,6 +13,12 @@
 
 Route::get('/', 'WelcomeController@index');
 
+Route::resource('post', 'PostController',
+	['only' => ['index', 'store', 'show'],]);
+
+Route::resource('post.comment', 'CommentController',
+	['only' => ['index', 'store', 'show'],]);
+
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
