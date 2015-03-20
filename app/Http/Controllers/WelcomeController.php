@@ -20,7 +20,8 @@ class WelcomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('guest');
+		// 今はとりあえずauth不要で
+		// $this->middleware('guest');
 	}
 
 	/**

@@ -16,6 +16,7 @@ Route::get('/', 'WelcomeController@index');
 Route::resource('message', 'MessageController',
 	['only' => ['index', 'store', 'show'],]);
 
+/* とりあえず今は使わないものをコメントアウト
 Route::resource('post', 'PostController',
 	['only' => ['index', 'store', 'show'],]);
 
@@ -28,3 +29,4 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+*/
