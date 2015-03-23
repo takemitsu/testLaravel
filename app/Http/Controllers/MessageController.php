@@ -9,6 +9,11 @@ use bbs\Message;
 
 class MessageController extends Controller {
 
+	protected $message;
+	public function __construct(Message $message) {
+		$this->message = $message;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,7 +21,7 @@ class MessageController extends Controller {
 	 */
 	public function index()
 	{
-		return response()->json(Message::all());
+		return response()->json($this->message->orderBy('created_at','desc')->get());
 	}
 
 	/**
@@ -34,9 +39,10 @@ class MessageController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Requests\CreateMesssageRequest $request)
 	{
-		//
+		$this->message->create($request->all());
+		return response()->json(array('success' => true));
 	}
 
 	/**

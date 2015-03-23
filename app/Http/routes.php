@@ -16,6 +16,13 @@ Route::get('/', 'WelcomeController@index');
 Route::resource('message', 'MessageController',
 	['only' => ['index', 'store', 'show'],]);
 
+
+Route::group(array('prefix' => 'api'), function() {
+	Route::resource('message', 'MessageController',
+		['only' => ['index', 'store', 'destroy', 'show'],]);
+});
+
+
 /* とりあえず今は使わないものをコメントアウト
 Route::resource('post', 'PostController',
 	['only' => ['index', 'store', 'show'],]);
