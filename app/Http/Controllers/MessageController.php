@@ -86,7 +86,7 @@ class MessageController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->message->findOrFail($id)->delete();
 	}
 
 }
