@@ -74,11 +74,11 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 
 	$scope.save = function() {
 		var method = 'post';
-		var endPoint = "/api/message/";
+		var endPoint = "/api/message";
 
 		if (post.id && post.id.length > 0) {
 			method = 'put';
-			endPoint += post.id;
+			endPoint += "/" + post.id;
 		}
 
 		$http({
