@@ -11,11 +11,11 @@
 
 			<div class="panel panel-default" ng-hide="loading" ng-repeat="p in posts">
 				<div class="panel-heading">
-					@{{ p.subject }} <small>by @{{ p.name }}
+					{{ p.subject }} <small>by {{ p.name }}
 					<span ng-click="deleteComment(p.id)" class="label label-danger" style="cursor:pointer;">削除</span>
 				</div>
 				<div class="panel-body" style="white-space: pre-line;">
-					<p>@{{ p.comment }}</p>
+					<p>{{ p.comment }}</p>
 				</div>
 			</div>
 

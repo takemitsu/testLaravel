@@ -23,12 +23,21 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 			resolve: {
 				post: function() {
 					return {
+						id: null,
 						name: '',
 						subject: '',
 						comment: ''
 					};
 				}
 			}
+		});
+		return instance.result.then(function(selectedItem) {
+			//showSuccessMessage('保存しました');
+			//return $scope.loadRoom();
+			$scope.loadData();
+		}, function() {
+			return true;
+			//return $log.info('dismiss editRoom');
 		});
 	};
 /*
@@ -67,7 +76,7 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 		var method = 'post';
 		var endPoint = "/api/message/";
 
-		if (post.id.length > 0) {
+		if (post.id && post.id.length > 0) {
 			method = 'put';
 			endPoint += post.id;
 		}
