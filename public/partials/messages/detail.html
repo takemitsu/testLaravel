@@ -45,10 +45,8 @@
 			</div>
 			<div ng-repeat="c in comments">
 				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
-					<div class="col-md-10 text-right">
+					<div class="col-md-12 text-right">
 						<span class="text-warning"> {{ c.name }}</span>
-					</div>
-					<div class="col-md-2 text-right">
 						<button ng-click="deleteComment(c.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
 					</div>
 				</div>
