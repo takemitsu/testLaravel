@@ -25,16 +25,6 @@ class MessageController extends Controller {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -53,29 +43,7 @@ class MessageController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+		return response()->json($this->message->findOrFail($id));
 	}
 
 	/**
@@ -87,6 +55,6 @@ class MessageController extends Controller {
 	public function destroy($id)
 	{
 		$this->message->findOrFail($id)->delete();
+		return response()->json(array('success' => true));
 	}
-
 }

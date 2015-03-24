@@ -1,6 +1,6 @@
 var mainCtrl = angular.module('mainCtrl', []);
 
-
+// ---------------------------------------------------------
 
 mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 	$scope.postData = {};
@@ -58,6 +58,8 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 	}
 });
 
+// ---------------------------------------------------------
+
 mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $http, post) {
 	$scope.postData = $.extend({}, post);
 
@@ -83,4 +85,73 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 	return $scope.cancel = function() {
 		return $modalInstance.dismiss('cancel');
 	};
+});
+
+// ---------------------------------------------------------
+
+mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $modal) {
+//mainControllers.controller('ApartmentDetailController', function($scope, $rootScope, $http, $location, $routeParams, $modal, $log) 
+	$scope.topic = {};
+	$scope.comments = [];
+	$scope.loading = true;
+	$scope.loadDetail = function() {
+		$scope.loading = true;
+		$http.get("/api/message/" + $routeParams.id)
+			.success(function(json) {
+				$scope.topic = json;
+				$http.get("/api/message/" + $routeParams.id + "/comment")
+					.success(function(comments) {
+						$scope.comments = comments;
+						$scope.loading = false;
+					})
+					.error(function(data) {
+						console.log(data);
+					});
+			})
+			.error(function(data) {
+				console.log(data);
+			});
+	};
+	$scope.loadDetail();
+
+	$scope.reloadComment = function() {
+		$scope.loadDetail();
+	};
+
+	$scope.save = function() {
+		console.log($scope.postData);
+		if(!($scope.postData.name && $scope.postData.comment)) {
+			return false;
+		}
+		$scope.loading = true;
+		$http({
+			method: 'post',
+			url: "/api/message/" + $routeParams.id + "/comment",
+			data: $scope.postData
+		}).success(function(json) {
+			$scope.postData.comment = "";
+			$scope.loadDetail();
+		}).error(function(data) {
+			console.log(data);
+		});
+	};
+
+	$scope.deleteComment = function(id) {
+		if(!confirm('削除しますか')) {
+			return false;
+		}
+
+		$scope.loading = true;
+
+		$http({
+			method: 'delete',
+			url: "/api/message/" + $routeParams.id + "/comment/" + id,
+		}).success(function(json) {
+			$scope.loadDetail();
+		}).error(function(data) {
+			console.log(data);
+		});
+		return false;
+	}
+
 });

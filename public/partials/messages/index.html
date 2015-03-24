@@ -1,28 +1,36 @@
 <div ng-controller="IndexController">
 
-	<div class="row" style="margin-bottom: 10px;">
-		<div class="col-md-6">
+	<p class="text-right">
+		<button class="btn btn-default" ng-click="reloadComment()">更新</button>
+		<button class="btn btn-default" ng-click="addComment()">追加</button>
+	</p>
+
+	<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
+
+	<div class="panel panel-default" ng-hide="loading">
+		<div class="panel-heading">
+			<h4 class="panel-title">トピック一覧</h4>
 		</div>
-		<div class="col-md-6 text-right">
-			<button class="btn btn-default" ng-click="reloadComment()">更新</button>
-			<button class="btn btn-default" ng-click="addComment()">追加</button>
+		<div class="panel-body">
+			<div ng-repeat="p in posts">
+				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
+					<div class="col-md-5">
+						<span class="text-primary">{{ p.subject }}</span>
+						<a href="#/topic/{{p.id}}" class="btn btn-default btn-xs">詳細</a>
+					</div>
+					<div class="col-md-5 text-right">
+						<span class="text-warning"> {{ p.name }}</span>
+					</div>
+					<div class="col-md-2 text-right">
+						<button ng-click="deleteComment(p.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
+					</div>
+				</div>
+				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
+					<div class="col-md-12">
+						<p style="white-space: pre-line;">{{ p.comment }}</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
-	<div class="col-md-12">
-
-		<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
-
-		<div class="panel panel-default" ng-hide="loading" ng-repeat="p in posts">
-			<div class="panel-heading">
-				{{ p.subject }} <small>by {{ p.name }}
-				<button ng-click="deleteComment(p.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
-			</div>
-			<div class="panel-body" style="white-space: pre-line;">
-				<p>{{ p.comment }}</p>
-			</div>
-		</div>
-
-	</div>
-
 </div>

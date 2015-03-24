@@ -5,29 +5,27 @@ use bbs\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use bbs\Post;
+use bbs\Comment;
 
 class CommentController extends Controller {
+
+	protected $comment;
+	public function __construct(Comment $comment) {
+		$this->comment = $comment;
+	}
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($post_id)
+	public function index($message_id)
 	{
-		$post = Post::findOrFail($post_id);
-		return response()->json($post->comments);
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		return response()->json(
+			$this->comment
+				->where('message_id', '=', $message_id)
+				->orderBy('created_at','desc')->get()
+		);
 	}
 
 	/**
@@ -35,42 +33,12 @@ class CommentController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($message_id, Requests\CreateCommentRequest $request)
 	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+		$comment = $request->all();
+		$comment['message_id'] = $message_id;
+		$this->comment->create($comment);
+		return response()->json(array('success' => true));
 	}
 
 	/**
@@ -79,9 +47,9 @@ class CommentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($message_id, $comment_id)
 	{
-		//
+		$this->comment->findOrFail($comment_id)->delete();
+		return response()->json(array('success' => true));
 	}
-
 }

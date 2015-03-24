@@ -13,17 +13,20 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::resource('message', 'MessageController',
-	['only' => ['index', 'store', 'show'],]);
-
-
 Route::group(array('prefix' => 'api'), function() {
 	Route::resource('message', 'MessageController',
 		['only' => ['index', 'store', 'destroy', 'show'],]);
+
+	Route::resource('message.comment', 'CommentController',
+		['only' => ['index', 'store', 'destroy'],]);
+
 });
 
 
 /* とりあえず今は使わないものをコメントアウト
+Route::resource('message', 'MessageController',
+	['only' => ['index', 'store', 'show'],]);
+
 Route::resource('post', 'PostController',
 	['only' => ['index', 'store', 'show'],]);
 
