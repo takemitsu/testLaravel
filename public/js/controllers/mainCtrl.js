@@ -8,6 +8,7 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 	$scope.loading = true;
 
 	$scope.loadData = function() {
+		$scope.loading = true;
 		bbs.get()
 			.success(function(data) {
 				$scope.posts = data;
@@ -15,6 +16,10 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 			});
 	};
 	$scope.loadData();
+
+	$scope.reloadComment = function() {
+		$scope.loadData();
+	};
 
 	$scope.addComment = function(post) {
 		var instance = $modal.open({
@@ -32,28 +37,12 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 			}
 		});
 		return instance.result.then(function(selectedItem) {
-			//showSuccessMessage('保存しました');
-			//return $scope.loadRoom();
 			$scope.loadData();
 		}, function() {
-			return true;
-			//return $log.info('dismiss editRoom');
+			return false;
 		});
 	};
-/*
-	$scope.submitComment = function() {
-		$scope.loading = true;
 
-		bbs.save($scope.postData)
-			.success(function(data) {
-				$scope.postData = {};
-				$scope.loadData();
-			})
-			.error(function(data) {
-				console.log(data);
-			});
-	};
-*/
 	$scope.deleteComment = function(id) {
 		if(!confirm('削除しますか')) {
 			return false;

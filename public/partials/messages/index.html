@@ -1,24 +1,28 @@
 <div ng-controller="IndexController">
-	<div class="row">
-		<div class="col-md-12">
 
-			<p class="text-right">
-				<button class="btn btn-default" ng-click="addComment()">
-					追加
-				</button>
-			</p>
-			<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
-
-			<div class="panel panel-default" ng-hide="loading" ng-repeat="p in posts">
-				<div class="panel-heading">
-					{{ p.subject }} <small>by {{ p.name }}
-					<span ng-click="deleteComment(p.id)" class="label label-danger" style="cursor:pointer;">削除</span>
-				</div>
-				<div class="panel-body" style="white-space: pre-line;">
-					<p>{{ p.comment }}</p>
-				</div>
-			</div>
-
+	<div class="row" style="margin-bottom: 10px;">
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-6 text-right">
+			<button class="btn btn-default" ng-click="reloadComment()">更新</button>
+			<button class="btn btn-default" ng-click="addComment()">追加</button>
 		</div>
 	</div>
+
+	<div class="col-md-12">
+
+		<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
+
+		<div class="panel panel-default" ng-hide="loading" ng-repeat="p in posts">
+			<div class="panel-heading">
+				{{ p.subject }} <small>by {{ p.name }}
+				<button ng-click="deleteComment(p.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
+			</div>
+			<div class="panel-body" style="white-space: pre-line;">
+				<p>{{ p.comment }}</p>
+			</div>
+		</div>
+
+	</div>
+
 </div>
