@@ -20,6 +20,7 @@
 					</div>
 					<div class="col-md-7 text-right">
 						<span class="text-warning"> {{ p.name }}</span>
+						<span class="text-muted"> ({{ p.created_at }})</span>
 						<button ng-click="deleteComment(p.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
 					</div>
 				</div>

@@ -9,10 +9,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
-<script src="js/ui-bootstrap.min.js"></script>
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
-<script src="js/controllers/mainCtrl.js"></script>
-<script src="js/services/bbsService.js"></script>
-<script src="js/app.js"></script>
+<script src="/js/common/angular-file-upload.min.js"></script>
+<script src="/js/common/angular-file-upload-shim.min.js"></script>
+<script src="/js/common/ui-bootstrap.min.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+<script src="/js/controllers/mainCtrl.js"></script>
+<script src="/js/services/bbsService.js"></script>
+<script src="/js/app.js"></script>
 
 @endsection

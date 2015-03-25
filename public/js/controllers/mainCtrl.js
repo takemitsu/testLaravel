@@ -89,7 +89,7 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 
 // ---------------------------------------------------------
 
-mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $modal) {
+mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $modal, $upload) {
 //mainControllers.controller('ApartmentDetailController', function($scope, $rootScope, $http, $location, $routeParams, $modal, $log) 
 	$scope.topic = {};
 	$scope.comments = [];
@@ -118,11 +118,39 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 		$scope.loadDetail();
 	};
 
+
+	$scope.upload = function(files) {
+		if (files && files.length) {
+			for(var i = 0; i < files.length; i++) {
+				var file = files[i];
+				// console.log(file);
+				$upload.upload({
+					url: '/api/media',
+					method: 'POST',
+					file: file,
+				}).progress(function(evt) {
+					// console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :' + evt.config.file.name);
+				}).success(function(data, status, headers, config) {
+					// console.log('file ' + config.file.name + ' is uploaded successfully. Response: ' + data);
+					$scope.attachment = data;
+				}).error(function(data) {
+					console.log(data);
+				});
+			}
+		}
+	};
+
+	$scope.attachment = null;
+
 	$scope.save = function() {
-		console.log($scope.postData);
+		// console.log($scope.postData, $scope.attachment);
 		if(!($scope.postData.name && $scope.postData.comment)) {
 			return false;
 		}
+		if($scope.attachment) {
+			$scope.postData.media_id = $scope.attachment.id;
+		}
+		// console.log($scope.postData);
 		$scope.loading = true;
 		$http({
 			method: 'post',
@@ -130,6 +158,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 			data: $scope.postData
 		}).success(function(json) {
 			$scope.postData.comment = "";
+			$scope.attachment = null;
 			$scope.loadDetail();
 		}).error(function(data) {
 			console.log(data);
@@ -154,4 +183,22 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 		return false;
 	}
 
+});
+
+// ---------------------------------------------------------
+
+mainCtrl.controller('DetailMediaController', function($scope, $http, $routeParams, $modal, $upload) {
+	$scope.media = {};
+	$scope.loading = true;
+	$scope.loadDetail = function() {
+		$scope.loading = true;
+		$http.get("/api/media/" + $routeParams.id)
+			.success(function(json) {
+				$scope.media = json;
+			})
+			.error(function(data) {
+				console.log(data);
+			});
+	};
+	$scope.loadDetail();
 });

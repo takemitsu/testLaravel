@@ -20,6 +20,8 @@ Route::group(array('prefix' => 'api'), function() {
 	Route::resource('message.comment', 'CommentController',
 		['only' => ['index', 'store', 'destroy'],]);
 
+	Route::resource('media', 'MediaController',
+		['only' => ['index', 'store', 'show'],]);
 });
 
 

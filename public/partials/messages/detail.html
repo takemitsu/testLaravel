@@ -7,10 +7,10 @@
 				<div class="col-md-5">
 					{{ topic.subject }}
 				</div>
-				<div class="col-md-5 text-right">
+				<div class="col-md-7 text-right">
 					<span class="text-warning"> {{ topic.name }}</span>
+					<span class="text-muted"> ({{ topic.created_at }})</span>
 				</div>
-				<div class="col-md-2"></div>
 			</div>
 		</div>
 		<div class="panel-body">
@@ -31,6 +31,9 @@
 			<textarea class="form-control" rows="3" name="comment" ng-model="postData.comment" required placeholder="内容"></textarea>
 			<span class="error" ng-show="fm.comment.$error.required">内容を入力してください</span>
 		</div>
+		<div class="form-group">
+			<input type="file" ng-file-select ng-multiple="false" ng-file-change="upload($files)" />
+		</div>
 		<p class="text-right">
 			<button class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
 		</p>
@@ -45,8 +48,12 @@
 			</div>
 			<div ng-repeat="c in comments">
 				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
-					<div class="col-md-12 text-right">
+					<div class="col-md-5">
+						<a ng-show="c.media_id != 0" href="/#/media/{{c.media_id}}" class="btn btn-xs btn-warning">添付ファイル</a>
+					</div>
+					<div class="col-md-7 text-right">
 						<span class="text-warning"> {{ c.name }}</span>
+						<span class="text-muted"> ({{ c.created_at }})</span>
 						<button ng-click="deleteComment(c.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
 					</div>
 				</div>

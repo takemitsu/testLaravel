@@ -1,4 +1,4 @@
-var bbsApp = angular.module('bbsApp', ['ngRoute', 'mainCtrl', 'bbsService', 'ui.bootstrap']);
+var bbsApp = angular.module('bbsApp', ['ngRoute', 'mainCtrl', 'bbsService', 'ui.bootstrap', 'ngFileUpload']);
 
 bbsApp.config([
 	'$routeProvider', function($routeProvider) {
@@ -8,6 +8,9 @@ bbsApp.config([
 		}).when('/topic/:id', {
 			templateUrl: '/partials/messages/detail.html',
 			controller: 'DetailController'
+		}).when('/media/:id', {
+			templateUrl: '/partials/messages/media.html',
+			controller: 'DetailMediaController'
 		}).otherwise({
 			redirectTo: '/index'
 		}) ;

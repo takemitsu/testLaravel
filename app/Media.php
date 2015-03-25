@@ -3,16 +3,19 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Comment extends Model {
+class Media extends Model {
 
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
 
+	// 代入を許す属性
 	protected $fillable = [
-		'message_id',
-		'media_id',
-		'name',
-		'comment'
+		'uuid',
+		'filename',
+		'ext',
+		'filepath',
+		'filesize',
+		'mime_type'
 	];
 
 }
