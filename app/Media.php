@@ -48,16 +48,20 @@ class Media extends Model {
 		$thumb_name = $paths['root'] . $paths['path'] . "/" . $this->uuid . "_$thumb_width.png";
 
 		// オリジナルリソース準備
-		if($this->ext == 'png') {
-			$original_image = imagecreatefrompng($file_name);
+		$original_image = null;
+		if(preg_match('/^image/', $this->mime_type)) {
+
+			if(preg_match('/png/',$this->mime_type)) {
+				$original_image = imagecreatefrompng($file_name);
+			}
+			else if(preg_match('/jpe?g/', $this->mime_type)) {
+				$original_image = imagecreatefromjpeg($file_name);
+			}
+			else if(preg_match('/gif/', $this->mime_type)) {
+				$original_image = imagecreatefromgif($file_name);
+			}
 		}
-		else if($this->ext == 'jpg' || $this->ext == 'jpeg') {
-			$original_image = imagecreatefromjpeg($file_name);
-		}
-		else if($this->ext == 'gif') {
-			$original_image = imagecreatefromgif($file_name);
-		}
-		else {
+		if($original_image == null) {
 			// png/jpg/gif以外は無視
 			return false;
 		}

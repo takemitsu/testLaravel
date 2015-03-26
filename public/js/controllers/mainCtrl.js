@@ -226,6 +226,10 @@ mainCtrl.controller('DetailMediaController', function($scope, $http, $routeParam
 		$http.get("/api/media/" + $routeParams.id)
 			.success(function(json) {
 				$scope.media = json;
+				$scope.media.is_image = false;
+				if(json.mime_type.match(/^image/)){
+					$scope.media.is_image = true;
+				}
 			})
 			.error(function(data) {
 				console.log(data);
