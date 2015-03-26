@@ -94,6 +94,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 	$scope.topic = {};
 	$scope.comments = [];
 	$scope.loading = true;
+	$scope.hidePost = true;
 	$scope.loadDetail = function() {
 		$scope.loading = true;
 		$http.get("/api/message/" + $routeParams.id)
