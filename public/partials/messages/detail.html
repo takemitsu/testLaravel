@@ -18,11 +18,12 @@
 		</div>
 	</div>
 
-	<p class="text-right">
-		<button class="btn btn-default" ng-click="reloadComment()">更新</button>
-	</p>
+	<div class="col-md-12" style="margin-bottom: 16px;">
+		<button class="btn btn-info btn-sm" ng-model="hidePost" ng-disabled="loading" btn-checkbox><span ng-show="hidePost">コメント追加を表示</span><span ng-hide="hidePost">コメント追加を非表示</span></button>
+		<div style="float:right;"><button class="btn btn-default" ng-click="reloadComment()">更新</button></div>
+	</div>
 
-	<form name="fm" ng-hide="loading">
+	<form name="fm" ng-hide="hidePost || loading" style="clear:both;">
 		<div class="form-group">
 			<input type="text" class="form-control input-sm" name="name" ng-model="postData.name" required placeholder="名前">
 			<span class="error" ng-show="fm.name.$error.required">名前を入力してください</span>
@@ -41,7 +42,7 @@
 
 	<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
 
-	<div class="panel panel-default" ng-hide="loading">
+	<div class="panel panel-default" ng-hide="loading" style="clear:both;">
 		<div class="panel-body">
 			<div ng-show="comments.length == 0">
 				nodata

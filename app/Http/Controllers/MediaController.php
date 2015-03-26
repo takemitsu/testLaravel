@@ -85,7 +85,8 @@ class MediaController extends Controller {
 			return response()->error('500');
 		}
 		return response()->json(array(
-			'url' => $paths['path'] . "/" . $paths['name']
+			'url' => $paths['path'] . "/" . $paths['name'],
+			'mime_type' => $media->mime_type
 		));
 	}
 
