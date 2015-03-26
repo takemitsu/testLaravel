@@ -4,6 +4,7 @@ use bbs\Http\Requests;
 use bbs\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use bbs\Comment;
 use bbs\Media;
@@ -24,7 +25,7 @@ class CommentController extends Controller {
 	{
 		$comments = $this->comment
 				->where('message_id', '=', $message_id)
-				->orderBy('created_at','desc')->get();
+				->orderBy('created_at','desc')->paginate(5);
 
 		// サムネイルURL付与
 		foreach ($comments as $comment) {

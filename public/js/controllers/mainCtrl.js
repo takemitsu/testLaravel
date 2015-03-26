@@ -4,16 +4,28 @@ var mainCtrl = angular.module('mainCtrl', []);
 
 mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 	$scope.postData = {};
-
 	$scope.loading = true;
+
+	$scope.maxSize = 5;
+	$scope.itemPerPage = 10;
+	$scope.totalItems = 1;
+	$scope.filters = {
+		page: 1
+	};
 
 	$scope.loadData = function() {
 		$scope.loading = true;
-		bbs.get()
-			.success(function(data) {
-				$scope.posts = data;
-				$scope.loading = false;
-			});
+
+		$http.get('/api/message', {
+			params: $scope.filters
+		})
+		.success(function(data) {
+			$scope.posts = data.data;
+			$scope.filters.page = data.current_page;
+			$scope.itemPerPage = data.per_page;
+			$scope.totalItems = data.total;
+			$scope.loading = false;
+		});
 	};
 	$scope.loadData();
 
@@ -95,19 +107,33 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 	$scope.comments = [];
 	$scope.loading = true;
 	$scope.hidePost = true;
+
+	$scope.maxSize = 5;
+	$scope.itemPerPage = 10;
+	$scope.totalItems = 1;
+	$scope.filters = {
+		page: 1
+	};
+
 	$scope.loadDetail = function() {
 		$scope.loading = true;
 		$http.get("/api/message/" + $routeParams.id)
 			.success(function(json) {
 				$scope.topic = json;
-				$http.get("/api/message/" + $routeParams.id + "/comment")
-					.success(function(comments) {
-						$scope.comments = comments;
-						$scope.loading = false;
-					})
-					.error(function(data) {
-						console.log(data);
-					});
+
+				$http.get("/api/message/" + $routeParams.id + "/comment", {
+					params: $scope.filters
+				})
+				.success(function(comments) {
+					$scope.comments = comments.data;
+					$scope.filters.page = comments.current_page;
+					$scope.itemPerPage = comments.per_page;
+					$scope.totalItems = comments.total;
+					$scope.loading = false;
+				})
+				.error(function(data) {
+					console.log(data);
+				});
 			})
 			.error(function(data) {
 				console.log(data);

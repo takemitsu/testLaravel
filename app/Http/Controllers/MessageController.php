@@ -4,6 +4,7 @@ use bbs\Http\Requests;
 use bbs\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use bbs\Message;
 
@@ -21,7 +22,7 @@ class MessageController extends Controller {
 	 */
 	public function index()
 	{
-		return response()->json($this->message->orderBy('created_at','desc')->get());
+		return response()->json($this->message->orderBy('created_at','desc')->paginate(5));
 	}
 
 	/**

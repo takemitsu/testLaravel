@@ -6231,5 +6231,8 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.panel-footer .pagination {
+  margin: 0;
+}
 
 /*# sourceMappingURL=app.css.map */
