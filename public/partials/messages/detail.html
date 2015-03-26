@@ -38,7 +38,7 @@
 		</div>
 		<p class="text-right">
 			<button ng-show="imageUploading" class="btn btn-default btn-muted">ファイルアップロード中です</button>
-			<button ng-hide="imageUploading" class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
+			<button ng-hide="imageUploading" ng-disabled="imageUploading" class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
 		</p>
 	</form>
 
