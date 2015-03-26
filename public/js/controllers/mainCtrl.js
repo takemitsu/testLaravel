@@ -147,6 +147,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 		if(!($scope.postData.name && $scope.postData.comment)) {
 			return false;
 		}
+		$scope.postData.media_id = 0;
 		if($scope.attachment) {
 			$scope.postData.media_id = $scope.attachment.id;
 		}
