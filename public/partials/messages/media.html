@@ -1,3 +1,9 @@
 <div ng-controller="DetailMediaController">
-	<img src="{{ media.url }}" />
+	<img ng-if="media.mime_type.match('/image/')" src="{{ media.url }}" />
+	<div ng-if="!media.mime_type.match('/image/')">
+		<p>イメージ以外のファイルです。</p>
+		<p>
+			<a href="{{ media.url }}" class="btn btn-default">添付ファイル</a>
+		</p>
+	</div>
 </div>

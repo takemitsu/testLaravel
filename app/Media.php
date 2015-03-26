@@ -47,11 +47,6 @@ class Media extends Model {
 		$file_name  = $paths['root'] . $paths['path'] . "/" . $paths['name'];
 		$thumb_name = $paths['root'] . $paths['path'] . "/" . $this->uuid . "_$thumb_width.png";
 
-		// オリジナル画像の横幅・高さを取得
-		list($original_width, $original_height) = getimagesize($file_name);
-		// 高さを算出
-		$thumb_height = round( $original_height * $thumb_width / $original_width );
-
 		// オリジナルリソース準備
 		if($this->ext == 'png') {
 			$original_image = imagecreatefrompng($file_name);
@@ -63,8 +58,14 @@ class Media extends Model {
 			$original_image = imagecreatefromgif($file_name);
 		}
 		else {
+			// png/jpg/gif以外は無視
 			return false;
 		}
+		// オリジナル画像の横幅・高さを取得
+		list($original_width, $original_height) = getimagesize($file_name);
+		// 高さを算出
+		$thumb_height = round( $original_height * $thumb_width / $original_width );
+
 		// サムネファイルリソース準備(黒画像らしい)
 		$thumb_image = imagecreatetruecolor($thumb_width, $thumb_height);
 
