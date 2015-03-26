@@ -6,6 +6,7 @@ use bbs\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use bbs\Comment;
+use bbs\Media;
 
 class CommentController extends Controller {
 
@@ -21,11 +22,24 @@ class CommentController extends Controller {
 	 */
 	public function index($message_id)
 	{
-		return response()->json(
-			$this->comment
+		$comments = $this->comment
 				->where('message_id', '=', $message_id)
-				->orderBy('created_at','desc')->get()
-		);
+				->orderBy('created_at','desc')->get();
+
+		// サムネイルURL付与
+		foreach ($comments as $comment) {
+			$media = null;
+			$comment['thumb_url'] = null;
+			// var_dump($comment->media_id);
+			if($comment->media_id != 0) {
+				$media = Media::findOrFail($comment->media_id);
+			}
+			if($media != null) {
+				$comment['thumb_url'] = $media->thubnail_url();
+			}
+		}
+
+		return response()->json($comments);
 	}
 
 	/**

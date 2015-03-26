@@ -21,8 +21,8 @@ class MediaController extends Controller {
 	 */
 	public function index()
 	{
-		// ファイルリストは不要か
-		return response()->json(array('success' => true));
+		// とりあえず。
+		return response()->json($this->media->orderBy('created_at','desc')->get());
 	}
 
 	/**
@@ -38,38 +38,22 @@ class MediaController extends Controller {
 			if($request->file('file')->isValid()) {
 				$file = $request->file('file');
 
-				$uuid = uuid_create(UUID_TYPE_TIME);
-				$mime_type = $file->getMimeType();
-				$filename = $file->getClientOriginalName();
-				$filesize = $file->getClientSize();
-				$ext = $file->getClientOriginalExtension();
-
-				$media_storepath = config('filesystems.media_storepath');
-
-				if(!$media_storepath) {
-					return response()->error('500');
-				}
-
-				$path = $_SERVER['DOCUMENT_ROOT'] . "/$media_storepath/" . substr($uuid,0,1) . "/" . substr($uuid,1,1);
-				$uuid_filename = "$uuid.$ext";
-
-				if(!file_exists($path)) {
-					if(!mkdir($path, 0755, true)) {
-						// error
-						return response()->error('500');
-					}
-				}
-				$file->move($path, $uuid_filename);
-
 				$media = $this->media->create([
-					'uuid'      => $uuid,
-					'filename'  => $filename,
-					'ext'       => $ext,
+					'uuid'      => uuid_create(UUID_TYPE_TIME),
+					'filename'  => $file->getClientOriginalName(),
+					'ext'       => $file->getClientOriginalExtension(),
 					'filepath'  => "", // とりあえず入れないｗ
-					'filesize'  => $filesize,
-					'mime_type' => $mime_type
+					'filesize'  => $file->getClientSize(),
+					'mime_type' => $file->getMimeType()
 				]);
 
+				$paths = $media->make_media_storedname();
+				if($paths == null) {
+					return response()->error('500');
+				}
+				$file->move($paths['root'].$paths['path'], $paths['name']);
+
+				$media->make_thumbnail_360();
 			}
 		}
 		if($file == null) {
@@ -95,18 +79,13 @@ class MediaController extends Controller {
 	 */
 	public function show($id)
 	{
-		// ファイルパスやらを返す
-		$media_storepath = config('filesystems.media_storepath');
-		if(!$media_storepath) {
+		$media = $this->media->findOrFail($id);
+		$paths = $media->make_media_storedname();
+		if($paths == null) {
 			return response()->error('500');
 		}
-
-		$media = $this->media->findOrFail($id);
-		$path = "/$media_storepath/" . substr($media->uuid,0,1) . "/" . substr($media->uuid,1,1);
-		$uuid_filename = $media->uuid . "." . $media->ext;
-
 		return response()->json(array(
-			'url' => "$path/$uuid_filename"
+			'url' => $paths['path'] . "/" . $paths['name']
 		));
 	}
 
@@ -118,7 +97,9 @@ class MediaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		// 削除は不要か
+		// とりあえず
+		$this->media->findOrFail($id)->delete();
+		return response()->json(array('success' => true));
 	}
 
 }
