@@ -107,6 +107,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 	$scope.comments = [];
 	$scope.loading = true;
 	$scope.hidePost = true;
+	$scope.imageUploading = false;
 
 	$scope.maxSize = 5;
 	$scope.itemPerPage = 10;
@@ -156,10 +157,12 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 					method: 'POST',
 					file: file,
 				}).progress(function(evt) {
+					$scope.imageUploading = true;
 					// console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :' + evt.config.file.name);
 				}).success(function(data, status, headers, config) {
 					// console.log('file ' + config.file.name + ' is uploaded successfully. Response: ' + data);
 					$scope.attachment = data;
+					$scope.imageUploading = false;
 				}).error(function(data) {
 					console.log(data);
 				});

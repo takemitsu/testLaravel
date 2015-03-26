@@ -26,17 +26,19 @@
 	<form name="fm" ng-hide="hidePost || loading" style="clear:both;">
 		<div class="form-group">
 			<input type="text" class="form-control input-sm" name="name" ng-model="postData.name" required placeholder="名前">
-			<span class="error" ng-show="fm.name.$error.required">名前を入力してください</span>
+			<span class="error text-danger" ng-show="fm.name.$error.required">名前を入力してください</span>
 		</div>
 		<div class="form-group">
 			<textarea class="form-control" rows="3" name="comment" ng-model="postData.comment" required placeholder="内容"></textarea>
-			<span class="error" ng-show="fm.comment.$error.required">内容を入力してください</span>
+			<span class="error text-danger" ng-show="fm.comment.$error.required">内容を入力してください</span>
 		</div>
 		<div class="form-group">
 			<input type="file" ng-file-select ng-multiple="false" ng-file-change="upload($files)" />
+			<p class="text-warning">ファイル添付の情報が残ってしまうため連続投稿時は一旦ページを再読み込みしてから行ってください。</p>
 		</div>
 		<p class="text-right">
-			<button class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
+			<button ng-show="imageUploading" class="btn btn-default btn-muted">ファイルアップロード中です</button>
+			<button ng-hide="imageUploading" class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
 		</p>
 	</form>
 
