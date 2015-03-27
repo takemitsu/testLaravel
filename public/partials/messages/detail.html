@@ -64,7 +64,7 @@
 					<div class="col-md-12">
 						<p ng-show="c.thumb_url">
 							<a href="/#/media/{{c.media_id}}">
-								<img src="{{ c.thumb_url }}" />
+								<img ng-src="{{ c.thumb_url }}" />
 							</a>
 						</p>
 						<p style="white-space: pre-line;">{{ c.comment }}</p>

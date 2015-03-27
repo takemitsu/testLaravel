@@ -1,5 +1,5 @@
 <div ng-controller="DetailMediaController">
-	<img ng-show="media.is_image" src="{{ media.url }}" />
+	<img ng-show="media.is_image" ng-src="{{ media.url }}" />
 	<div ng-hide="media.is_image">
 		<p>イメージ以外のファイルです。</p>
 		<p>
