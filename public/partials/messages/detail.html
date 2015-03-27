@@ -45,19 +45,22 @@
 	<div class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></div>
 
 	<div class="panel panel-default" ng-hide="loading" style="clear:both;">
-		<div class="panel-body">
+		<div class="panel-heading">
+			comments
+		</div>
+		<div class="panel-body" style="padding-top:0; padding-bottom:0;">
 			<div ng-show="comments.length == 0">
 				nodata
 			</div>
 			<div ng-repeat="c in comments">
 				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
-					<div class="col-md-5">
-						<a ng-show="c.media_id != 0" href="/#/media/{{c.media_id}}" class="btn btn-xs btn-warning">添付ファイル</a>
-					</div>
-					<div class="col-md-7 text-right">
+					<div class="col-md-7">
 						<span class="text-warning"> {{ c.name }}</span>
 						<span class="text-muted"> ({{ c.created_at }})</span>
 						<button ng-click="deleteComment(c.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
+					</div>
+					<div class="col-md-5 text-right">
+						<a ng-show="c.media_id != 0" href="/#/media/{{c.media_id}}" class="btn btn-xs btn-warning">添付ファイル</a>
 					</div>
 				</div>
 				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
