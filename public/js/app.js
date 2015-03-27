@@ -11,6 +11,11 @@ bbsApp.config([
 		}).when('/media/:id', {
 			templateUrl: '/partials/messages/media.html',
 			controller: 'DetailMediaController'
+
+		}).when('/bbs', {
+			templateUrl: '/partials/bbs/index.html',
+			controller: 'BbsController'
+
 		}).otherwise({
 			redirectTo: '/index'
 		}) ;
