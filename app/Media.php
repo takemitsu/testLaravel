@@ -7,7 +7,7 @@ class Media extends Model {
 
 	use SoftDeletes;
 	protected $dates = ['deleted_at'];
-	protected $thumb_width = 360;
+	protected $thumb_width = 240;
 
 	// 代入を許す属性
 	protected $fillable = [

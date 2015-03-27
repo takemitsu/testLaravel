@@ -39,7 +39,7 @@ class AuthController extends Controller {
 				->withInput($request->only('idkey'))
 				->withErrors(['name'=>'check login id or password']);
 		}
-		return redirect()->intended('/home');
+		return redirect()->intended('/home/#/bbs');
 	}
 
 	// サインアウト
