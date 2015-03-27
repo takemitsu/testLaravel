@@ -22,31 +22,43 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Name</label>
+							<label class="col-md-4 control-label">Login id <span class="text-danger">(*)</span></label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="idkey" value="{{ old('idkey') }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Name <span class="text-danger">(*)</span></label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-Mail Address</label>
+							<label class="col-md-4 control-label">E-Mail Address (optional)</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+								<p class="text-info" style="margin-bottom: 0;">optional field. use only password reset.</p>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Password</label>
+							<label class="col-md-4 control-label">Password <span class="text-danger">(*)</span></label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Confirm Password</label>
+							<label class="col-md-4 control-label">Confirm Password <span class="text-danger">(*)</span></label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4 text-info">* is Required fields.</div>
 						</div>
 
 						<div class="form-group">

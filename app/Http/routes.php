@@ -24,21 +24,27 @@ Route::group(array('prefix' => 'api'), function() {
 		['only' => ['index', 'store', 'show'],]);
 });
 
-
-/* とりあえず今は使わないものをコメントアウト
-Route::resource('message', 'MessageController',
-	['only' => ['index', 'store', 'show'],]);
-
-Route::resource('post', 'PostController',
-	['only' => ['index', 'store', 'show'],]);
-
-Route::resource('post.comment', 'CommentController',
-	['only' => ['index', 'store', 'show'],]);
-
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
+	// 'auth' => 'Auth\AuthController',
+	// パスワードはそのまま使えるかどうかはわからないけどそのままやってみたい
 	'password' => 'Auth\PasswordController',
 ]);
-*/
+
+// オレオレ認証
+Route::group(['prefix' => 'auth'], function() {
+	Route::resource('login', 'AuthController', 
+		['only' => ['index', 'store'],]);
+	Route::get('logout', 'AuthController@destroy');
+	Route::resource('register', 'RegisterController',
+		['only' => ['index', 'store'],]);
+});
+
+// データベースログ出力(use only php artisan serv)
+// DB::listen(function($sql, $bindings, $time)
+// {
+//     file_put_contents('php://stdout', "[SQL] {$sql} \n" .
+//                       "      bindings:\t".json_encode($bindings)."\n".
+//                       "      time:\t{$time} milliseconds\n");
+// });
