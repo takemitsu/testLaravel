@@ -37,6 +37,7 @@ class CommentController extends Controller {
 			}
 			if($media != null) {
 				$comment['thumb_url'] = $media->thubnail_url();
+				$comment['filesize'] = $media->filesize;
 			}
 		}
 
