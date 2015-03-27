@@ -11,6 +11,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
 <script src="/js/common/angular-file-upload.min.js"></script>
 <script src="/js/common/angular-file-upload-shim.min.js"></script>
+<script src="/js/common/angular-cookies.min.js"></script>
 <script src="/js/common/ui-bootstrap.min.js"></script>
 <script src="/js/common/ui-bootstrap-tpls.min.js"></script>
 <script src="/js/controllers/mainCtrl.js"></script>

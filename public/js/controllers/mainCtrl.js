@@ -22,8 +22,7 @@ mainCtrl.filter('filesize', function() {
 
 // ---------------------------------------------------------
 
-mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
-	$scope.postData = {};
+mainCtrl.controller('IndexController', function($scope, $http, $modal, $cookies, bbs) {
 	$scope.loading = true;
 
 	$scope.maxSize = 5;
@@ -61,7 +60,7 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 				post: function() {
 					return {
 						id: null,
-						name: '',
+						name: $cookies['myName'] || "",
 						subject: '',
 						comment: ''
 					};
@@ -92,8 +91,13 @@ mainCtrl.controller('IndexController', function($scope, $http, $modal, bbs) {
 
 // ---------------------------------------------------------
 
-mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $http, post) {
-	$scope.postData = $.extend({}, post);
+mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $http, post, $cookies) {
+	$scope.postData = {
+		id: post.id,
+		name: post.name,
+		subject: post.subject,
+		comment: post.comment
+	};
 
 	$scope.save = function() {
 		var method = 'post';
@@ -109,6 +113,7 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 			url: endPoint,
 			data: $scope.postData
 		}).success(function(json) {
+			$cookies['myName'] = $scope.postData.name;
 			return $modalInstance.close(json);
 		}).error(function(data) {
 			console.log(data);
@@ -121,9 +126,12 @@ mainCtrl.controller('MessageEditController', function($scope, $modalInstance, $h
 
 // ---------------------------------------------------------
 
-mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $modal, $upload) {
-//mainControllers.controller('ApartmentDetailController', function($scope, $rootScope, $http, $location, $routeParams, $modal, $log) 
+mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $modal, $upload, $cookies) {
+
 	$scope.topic = {};
+	$scope.postData = {
+		name: $cookies['myName'] || ""
+	};
 	$scope.comments = [];
 	$scope.loading = true;
 	$scope.hidePost = true;
@@ -208,6 +216,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 			url: "/api/message/" + $routeParams.id + "/comment",
 			data: $scope.postData
 		}).success(function(json) {
+			$cookies['myName'] = $scope.postData.name;
 			$scope.postData.comment = "";
 			$scope.attachment = null;
 			$scope.loadDetail();
@@ -238,7 +247,7 @@ mainCtrl.controller('DetailController', function($scope, $http, $routeParams, $m
 
 // ---------------------------------------------------------
 
-mainCtrl.controller('DetailMediaController', function($scope, $http, $routeParams, $modal, $upload) {
+mainCtrl.controller('DetailMediaController', function($scope, $http, $routeParams) {
 	$scope.media = {};
 	$scope.loading = true;
 	$scope.loadDetail = function() {

@@ -1,4 +1,4 @@
-var bbsApp = angular.module('bbsApp', ['ngRoute', 'mainCtrl', 'bbsService', 'ui.bootstrap', 'ngFileUpload']);
+var bbsApp = angular.module('bbsApp', ['ngRoute', 'mainCtrl', 'bbsService', 'ui.bootstrap', 'ngFileUpload', 'ngCookies']);
 
 bbsApp.config([
 	'$routeProvider', function($routeProvider) {
