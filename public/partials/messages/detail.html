@@ -59,8 +59,8 @@
 						<span class="text-muted"> ({{ c.created_at }})</span>
 						<button ng-click="deleteComment(c.id)" class="btn btn-danger btn-xs" style="cursor:pointer;">削除</button>
 					</div>
-					<div class="col-md-5 text-right">
-						<a ng-show="c.media_id != 0" href="/#/media/{{c.media_id}}" class="btn btn-xs btn-warning">添付ファイル</a>
+					<div class="col-md-5 text-right" ng-show="c.media_id != 0">
+						<a href="/#/media/{{c.media_id}}" class="btn btn-xs btn-warning">添付ファイル</a>
 					</div>
 				</div>
 				<div class="row" style="border-bottom: solid 1px #f0f0f0; padding: 10px 0;">
