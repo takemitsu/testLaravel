@@ -23,7 +23,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" >
 					<span class="sr-only">Toggle Navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -46,7 +46,7 @@
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
 								@if(Auth::user()->auth_type == 1)
 									<li class="divider"></li>
-									<li><a href="{{ url('/auth/list') }}">user list</a></li>
+									<li><a href="/#/user">user list</a></li>
 									<li><a href="{{ url('/auth/register') }}">Register</a></li>
 								@endif
 							</ul>
@@ -63,8 +63,17 @@
 	<!-- Scripts-->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-	@yield('scripts')
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
+	<script src="/js/common/angular-file-upload.min.js"></script>
+	<script src="/js/common/angular-file-upload-shim.min.js"></script>
+	<script src="/js/common/angular-cookies.min.js"></script>
+	<script src="/js/common/ui-bootstrap.min.js"></script>
+	<script src="/js/common/ui-bootstrap-tpls.min.js"></script>
+	<script src="/js/controllers/mainCtrl.js"></script>
+	<script src="/js/controllers/userController.js"></script>
+	<script src="/js/services/bbsService.js"></script>
+	<script src="/js/app.js"></script>
 
 </body>
 </html>

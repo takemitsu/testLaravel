@@ -42,7 +42,7 @@ class Media extends Model {
 
 		$paths = $this->make_media_storedname();
 		if($paths == null) {
-			return response()->error('500');
+			abort(500, 'failed to meke media stored name');
 		}
 		$file_name  = $paths['root'] . $paths['path'] . "/" . $paths['name'];
 		$thumb_name = $paths['root'] . $paths['path'] . "/" . $this->uuid . "_$thumb_width.png";
@@ -86,11 +86,11 @@ class Media extends Model {
 			$original_width,	// オリジナル width
 			$original_height	// オリジナル height
 			)) {
-			return response()->error('500');
+			abort(500, 'failed to create thumbnail (1)');
 		}
 		// サムネ画像ファイル出力
 		if(!imagepng($thumb_image, $thumb_name)) {
-			return response()->error('500');
+			abort(500, 'failed to create thumbnail (2)');
 		}
 
 		// 画像リソースを破棄
@@ -104,8 +104,7 @@ class Media extends Model {
 	public function make_media_storedname() {
 		$media_storepath = config('filesystems.media_storepath');
 		if(!$media_storepath) {
-			// return response()->error('500');
-			return null;
+			abort(500, 'failed to laod config file');
 		}
 		$document_root = $_SERVER['DOCUMENT_ROOT'];
 		$path = "/$media_storepath/" . substr($this->uuid,0,1) . "/" . substr($this->uuid,1,1);

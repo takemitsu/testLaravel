@@ -32,16 +32,16 @@ class AuthController extends Controller {
 				->withInput($request->only('idkey'))
 				->withErrors(['name'=>'no user']);
 		}
-		// if($user->status == 0) {
-		// 	return redirect()->back()
-		// 		->withInput($request->only('idkey'))
-		// 		->withErrors(['name'=>'not approval']);
-		// }
+		if($user->status == 0) {
+			return redirect()->back()
+				->withInput($request->only('idkey'))
+				->withErrors(['name'=>'not approval']);
+		}
 
 		if(! $auth->attempt([
 			'idkey' => $request['idkey'],
 			'password' => $request['password'],
-			// 'status' => 1,
+			'status' => 1,
 			])) {
 			return redirect()->back()
 				->withInput($request->only('idkey'))

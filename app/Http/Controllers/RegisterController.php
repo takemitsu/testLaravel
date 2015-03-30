@@ -20,7 +20,7 @@ class RegisterController extends Controller {
 		$user = User::create($input);
 		// $auth->login($user);
 		if($auth->user()){
-			return redirect('/auth/list');
+			return redirect('/#/user');
 		}
 		return redirect('/auth/login');
 	}

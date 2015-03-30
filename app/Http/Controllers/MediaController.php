@@ -50,7 +50,7 @@ class MediaController extends Controller {
 
 				$paths = $media->make_media_storedname();
 				if($paths == null) {
-					return response()->error('500');
+					abort(500, 'failed to meke media stored name');
 				}
 				$file->move($paths['root'].$paths['path'], $paths['name']);
 
@@ -58,7 +58,7 @@ class MediaController extends Controller {
 			}
 		}
 		if($file == null) {
-			return response()->error('500');
+			abort(401, 'no file request');
 		}
 
 		return response()->json(array(
@@ -83,7 +83,7 @@ class MediaController extends Controller {
 		$media = $this->media->findOrFail($id);
 		$paths = $media->make_media_storedname();
 		if($paths == null) {
-			return response()->error('500');
+			abort(500, 'failed to meke media stored name');
 		}
 		return response()->json(array(
 			'url' => $paths['path'] . "/" . $paths['name'],

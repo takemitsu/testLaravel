@@ -22,6 +22,10 @@ Route::group(array('prefix' => 'api'), function() {
 
 	Route::resource('media', 'MediaController',
 		['only' => ['index', 'store', 'show'],]);
+
+	Route::resource('user', 'UserController',
+		['only' => ['index', 'show', 'update', 'destroy'],]);
+
 });
 
 Route::controllers([
@@ -35,7 +39,6 @@ Route::group(['prefix' => 'auth'], function() {
 	Route::resource('login', 'AuthController', 
 		['only' => ['index', 'store'],]);
 	Route::get('logout', 'AuthController@destroy');
-	Route::get('list', 'AuthController@table');
 	Route::resource('register', 'RegisterController',
 		['only' => ['index', 'store'],]);
 });

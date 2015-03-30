@@ -1,0 +1,21 @@
+<div class="modal-header">
+	<h4 class="modal-title">ユーザ</h4>
+</div>
+<div class="modal-body">
+	<form name="fm">
+		<div class="form-group">
+			<label for="user-input-idkey">Login ID</label>
+			<input type="text" id="user-input-idkey" class="form-control" readonly="true" name="idkey" ng-model="user.idkey" required placeholder="Login ID">
+			<span class="error" ng-show="fm.idkey.$error.required">idkeyを入力してください</span>
+		</div>
+		<div class="form-group">
+			<label for="user-input-name">名前</label>
+			<input type="text" id="user-input-name" class="form-control" name="name" ng-model="user.name" required placeholder="名前">
+			<span class="error" ng-show="fm.name.$error.required">名前を入力してください</span>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default" ng-click="cancel()">キャンセル</button>
+	<button class="btn btn-default btn-primary" ng-click="save()">コメントする</button>
+</div>
