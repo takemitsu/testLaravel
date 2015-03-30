@@ -24,8 +24,6 @@ Route::group(array('prefix' => 'api'), function() {
 		['only' => ['index', 'store', 'show'],]);
 });
 
-Route::get('home', 'HomeController@index');
-
 Route::controllers([
 	// 'auth' => 'Auth\AuthController',
 	// パスワードはそのまま使えるかどうかはわからないけどそのままやってみたい
@@ -37,6 +35,7 @@ Route::group(['prefix' => 'auth'], function() {
 	Route::resource('login', 'AuthController', 
 		['only' => ['index', 'store'],]);
 	Route::get('logout', 'AuthController@destroy');
+	Route::get('list', 'AuthController@table');
 	Route::resource('register', 'RegisterController',
 		['only' => ['index', 'store'],]);
 });

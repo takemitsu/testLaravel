@@ -19,6 +19,9 @@ class RegisterController extends Controller {
 		$input['password'] = bcrypt($input['password']);
 		$user = User::create($input);
 		// $auth->login($user);
+		if($auth->user()){
+			return redirect('/auth/list');
+		}
 		return redirect('/auth/login');
 	}
 

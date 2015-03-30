@@ -29,24 +29,26 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/#/index">簡易BBS的な何か</a>
+				<a class="navbar-brand" href="/#/index">Laravel Test Program</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				@if (Auth::user())
-					<ul class="nav navbar-nav">
-						<li><a href="{{ url('/home/#/bbs') }}">Home</a></li>
-					</ul>
-				@endif
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
 						<li><a href="{{ url('/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/auth/register') }}">Register</a></li>
 					@else
-						<li class="dropdown">
-							<a href="/#/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+						<li class="dropdown" dropdown>
+							<a role="button" class="dropdown-toggle" dropdown-toggle>
+								{{ Auth::user()->name }} <span class="caret"></span>
+							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/auth/logout') }}">Logout</a></li>
+								@if(Auth::user()->auth_type == 1)
+									<li class="divider"></li>
+									<li><a href="{{ url('/auth/list') }}">user list</a></li>
+									<li><a href="{{ url('/auth/register') }}">Register</a></li>
+								@endif
 							</ul>
 						</li>
 					@endif

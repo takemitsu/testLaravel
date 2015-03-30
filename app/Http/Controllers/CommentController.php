@@ -13,6 +13,7 @@ class CommentController extends Controller {
 
 	protected $comment;
 	public function __construct(Comment $comment) {
+		$this->middleware('auth');
 		$this->comment = $comment;
 	}
 

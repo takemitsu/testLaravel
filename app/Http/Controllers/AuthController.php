@@ -15,6 +15,14 @@ class AuthController extends Controller {
 		return view('auth/login');
 	}
 
+	public function table()
+	{
+		$users = User::orderBy('created_at','desc')->paginate(5);
+		return view('auth/list',[
+			'users' => $users
+		]);
+	}
+
 	// ログイン実行
 	public function store(Requests\AuthenticateUserRequest $request, Guard $auth)
 	{
@@ -39,7 +47,7 @@ class AuthController extends Controller {
 				->withInput($request->only('idkey'))
 				->withErrors(['name'=>'check login id or password']);
 		}
-		return redirect()->intended('/home/#/bbs');
+		return redirect()->intended('/#/index');
 	}
 
 	// サインアウト

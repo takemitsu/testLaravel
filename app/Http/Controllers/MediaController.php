@@ -11,6 +11,7 @@ class MediaController extends Controller {
 
 	protected $media;
 	public function __construct(Media $media) {
+		$this->middleware('auth');
 		$this->media = $media;
 	}
 
