@@ -6231,6 +6231,9 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.panel-body p {
+  margin-bottom: 0;
+}
 .panel-footer .pagination {
   margin: 0;
 }

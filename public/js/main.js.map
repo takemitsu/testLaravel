@@ -1,0 +1,1 @@
+{"version":3,"sources":["test.js","test2.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;ACLA;AACA;AACA;AACA;AACA;AACA","file":"main.js","sourcesContent":["(function() {\n  alert('test3');\n\n}).call(this);\n\n//# sourceMappingURL=test.js.map","(function() {\n  alert('test4');\n\n}).call(this);\n\n//# sourceMappingURL=test2.js.map"],"sourceRoot":"/source/"}

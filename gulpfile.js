@@ -12,5 +12,12 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less');
+	mix.less('app.less');
+	mix.coffee([
+		'test.coffee',
+		'test2.coffee',
+		'controllers/test.coffee',
+		'controllers/test2.coffee'
+	],'public/js/temp/')
+	.scriptsIn('public/js/temp', 'public/js/main.js');
 });
